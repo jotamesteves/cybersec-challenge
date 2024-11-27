@@ -33,6 +33,7 @@ Este archivo describe los pasos necesarios para desplegar tanto el **Agente** co
    - **Almacenamiento:** 20 GB estándar.
    - **Autenticación:** Configura un usuario administrador y su contraseña.
    - **Deshabilitar conexiones públicas:** Deshabilita las conexiones públicas, de forma que la base de datos solo sea accesible desde la VPC interna.
+   - **Configurar Security Groups:** Configurar el SG para que el RDS llegue a la EC2 donde corre la api.
 
 3. **Configura la VPC para que las instancias EC2 puedan comunicarse con la base de datos RDS.** Asegúrate de que la VPC tenga las configuraciones adecuadas de subredes y que las instancias EC2 tengan acceso a la base de datos solo dentro de la misma red privada.
 
@@ -151,20 +152,20 @@ docker logs agent_container
   - Si la API no puede conectarse a la base de datos RDS, puedes probar la conexión a la base de datos manualmente utilizando el siguiente comando:
   
     **Para sistemas basados en Linux (Ubuntu o Amazon Linux):**
-    ```bash
+    ```
     mysql -h <ENDPOINT_DE_RDS> -u <USUARIO_RDS> -p
     ```
 
-    - Asegúrate de que el grupo de seguridad de la base de datos permita conexiones entrantes desde la IP de la instancia EC2 donde corre la API.
+    - Asegúrate de que el grupo de seguridad de la base de datos permita conexiones entrantes desde la IP de la instancia EC2 donde corre la API. Esto se configura al levantar el RDS y elegimos conexión con EC2.
     - Verifica que la instancia de RDS esté configurada correctamente para aceptar conexiones dentro de la VPC.
 
     Si la conexión es exitosa, deberías poder ver el prompt de MySQL. En caso de error, verifica el nombre del host y las credenciales, así como las configuraciones de red y de seguridad.
 
     **Comando para verificar si MySQL está escuchando en el puerto correcto (3306):**
-    ```bash
+    ```
     sudo netstat -tuln | grep 3306
     ```
-    Esto te ayudará a verificar si el servicio de base de datos está activo y escuchando en el puerto correcto.
+    Este comando permite verificar si el servicio de base de datos está activo y escuchando en el puerto correcto.
 
 ---
 
@@ -206,7 +207,7 @@ docker logs agent_container
 
 3. **Seguridad de la Base de Datos:**
    - Aunque se recomienda utilizar variables de entorno para las credenciales, la base de datos RDS está accesible desde la VPC, lo que podría ser riesgoso si las credenciales se exponen.
-   - **Oportunidad de mejora:** Asegurarse de que la base de datos esté configurada con **políticas de acceso mínimo** y que las conexiones solo se realicen a través de redes privadas o conexiones VPN seguras.
+   - **Oportunidad de mejora:** Asegurarse de que la base de datos esté configurada con **políticas de acceso mínimo** y que solamente los administradores de la db sean los únicos con los permisos para conectarse directamente a la misma.
 
 4. **Pruebas de Carga y Seguridad:**
    - No se mencionan pruebas de carga o pruebas de seguridad como parte del proceso de implementación. La falta de pruebas podría llevar a problemas de rendimiento o vulnerabilidades de seguridad no detectadas.
@@ -222,9 +223,6 @@ docker logs agent_container
 
 ---
 
-Este apartado de **Riesgos Asumidos y Oportunidades de Mejora** proporciona una visión clara sobre los aspectos que necesitan atención para mejorar la seguridad, escalabilidad y fiabilidad de la aplicación. Las oportunidades mencionadas son pasos importantes para asegurar que la infraestructura crezca de forma segura y eficiente.
-
----
 
 
 
