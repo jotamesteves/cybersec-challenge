@@ -13,6 +13,30 @@ Este archivo describe los pasos necesarios para desplegar tanto el **Agente** co
 
 ---
 
+## Librerías Utilizadas**
+
+A continuación, se detallan las principales librerías utilizadas en este proyecto, junto con una breve descripción de su funcionalidad:
+
+1. **Flask**  
+   - Framework ligero para desarrollar aplicaciones web. En este proyecto se utiliza para implementar la API que recibe los datos enviados por los agentes y los almacena en la base de datos.
+   - [Documentación oficial de Flask](https://flask.palletsprojects.com/)
+
+2. **mysql-connector-python**  
+   - Conector oficial de Python para interactuar con bases de datos MySQL. Permite ejecutar consultas y manejar transacciones con la base de datos RDS utilizada en el proyecto.
+   - [Documentación oficial de MySQL Connector](https://dev.mysql.com/doc/connector-python/en/)
+
+3. **psutil**  
+   - Librería para acceder a información del sistema, como procesos, usuarios conectados, y uso de recursos. Es utilizada en el agente para recolectar datos del sistema operativo.
+   - [Documentación oficial de psutil](https://psutil.readthedocs.io/)
+
+4. **requests**  
+   - Librería para realizar solicitudes HTTP. Es utilizada en el agente para enviar los datos recolectados al endpoint de la API.
+   - [Documentación oficial de requests](https://docs.python-requests.org/)
+
+Estas librerías se encuentran especificadas en los archivos `requirements.txt` tanto del **Agente** como de la **API**, lo que facilita su instalación en los entornos correspondientes.
+
+---
+
 ## **1. Despliegue de la API**
 
 ### **1.1. Crear y Configurar las Instancias EC2**
