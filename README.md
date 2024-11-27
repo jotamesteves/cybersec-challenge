@@ -223,6 +223,27 @@ docker logs agent_container
 
 ---
 
+## **9. Evidencias**
+
+1. **SERVIDOR API**
+![Evidencia Servidor API](./API.jpeg)
+
+---
+
+2. **SERVIDOR AGENTE**
+![Evidencia Servidor AGENTE](./Agent.jpeg)
+
+---
+
+1. **INSTANCIAS EN AWS**
+![Instancias en la consola de AWS](./Instances.jpeg)
+
+---
+
+1. **INSTANCIA RDS**
+![Instancia RDS donde esta corriendo la base de datos MySQL](./Database.jpeg)
+
+---
 
 
 
